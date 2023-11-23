@@ -5,16 +5,18 @@ spring:
       suffix: .jsp
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hangsung
     username: root
     password: Rjsn937129!
-    url: jdbc:mysql://localhost:3306/hangsung
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
-    jpa:
+  jpa:
+    hibernate:
+      ddl-auto: update # 옵션은 필요에 따라 변경
+    properties:
       hibernate:
-        ddl-auto: create # 옵션은 필요에 따라 변경
-      properties:
-        hibernate:
-          default_batch_fetch_size: 100 # 지연로딩 최적화를 위한 옵션
-          format_sql: true
-          dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: debug
