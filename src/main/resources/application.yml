@@ -1,0 +1,20 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Rjsn937129!
+    url: jdbc:mysql://localhost:3306/hangsung
+
+    jpa:
+      hibernate:
+        ddl-auto: create # 옵션은 필요에 따라 변경
+      properties:
+        hibernate:
+          default_batch_fetch_size: 100 # 지연로딩 최적화를 위한 옵션
+          format_sql: true
+          dialect: org.hibernate.dialect.MySQLDialect
