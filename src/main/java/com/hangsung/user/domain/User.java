@@ -50,8 +50,8 @@ public class User {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TravelPackage> createdPackage;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<TravelPackage> createdPackage;
 
     @Builder
     public User(final String username, final String password, final String nickname,

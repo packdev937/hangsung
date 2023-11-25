@@ -9,7 +9,7 @@
 
 <h2>Create Travel Package Form</h2>
 
-<form action="/create" method="post">
+<form action="/travel/create" method="post">
     <div>
         <label for="title">Title:</label>
         <input type="text" id="title" name="title">
@@ -29,8 +29,12 @@
         <input type="text" id="photoUrl" name="photoUrl">
     </div>
     <div>
-        <label for="recommendedNumberOfPeople">Recommended Number of People:</label>
-        <input type="number" id="recommendedNumberOfPeople" name="recommendedNumberOfPeople">
+        <label for="people">Recommended Number of People:</label>
+        <input type="number" id="people" name="people">
+    </div>
+    <div>
+        <label for="duration">Duration</label>
+        <input type="text" id="duration" name="duration">
     </div>
     <div>
         <label for="travelRoute">Travel Route:</label>
