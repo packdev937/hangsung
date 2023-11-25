@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -50,8 +51,8 @@ public class User {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<TravelPackage> createdPackage;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TravelPackage> createdPackages = new ArrayList<>();
 
     @Builder
     public User(final String username, final String password, final String nickname,
@@ -62,5 +63,9 @@ public class User {
         this.birthAt = birthAt;
         this.gender = gender;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public void addTravelPackage(TravelPackage travelPackage) {
+        this.createdPackages.add(travelPackage);
     }
 }
