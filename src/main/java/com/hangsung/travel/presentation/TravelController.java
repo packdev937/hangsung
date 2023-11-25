@@ -7,15 +7,18 @@ import com.hangsung.travel.request.CreateTravelPackageRequest;
 import com.hangsung.travel.service.TravelService;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +28,7 @@ public class TravelController {
     private final TravelService travelService;
     private final CityService cityService;
 
-    @GetMapping("travel/create")
+    @GetMapping("/travel/create")
     public String showCreateTravelPackageForm(Model model) {
         log.info("run showCreateTravelPackageForm()");
 
@@ -35,7 +38,7 @@ public class TravelController {
         return "/travel/addPackage";
     }
 
-    @PostMapping("travel/create")
+    @PostMapping("/travel/create")
     public String createTravelPackage(
         @ModelAttribute CreateTravelPackageRequest createTravelPackageRequest,
         HttpSession session) {
@@ -49,13 +52,18 @@ public class TravelController {
         }
     }
 
-    @GetMapping("travel/{packageId}")
-    public String showTravelPackageDetailForm(@PathVariable Long packageId, Model model) {
-        log.info("run showTravelPackageDetailForm()");
-        log.info("packageId is " + packageId);
-        TravelPackage travelPackage = travelService.getTravelPackage(packageId);
+    @GetMapping("/travel/{travelPackageId}")
+    public String showTravelPackageDetailForm(@PathVariable Long travelPackageId, Model model) {
+        TravelPackage travelPackage = travelService.getTravelPackage(travelPackageId);
         model.addAttribute("travelPackage", travelPackage);
         return "/travel/detailPackage";
+    }
+
+    @PostMapping("/travel/addLike")
+    public ResponseEntity<?> addLike(@RequestParam("travelPackageId") Long travelPackageId) {
+        TravelPackage travelPackage = travelService.addLike(travelPackageId);
+        log.info("Likes 수 " + travelPackage.getLikes());
+        return ResponseEntity.ok(Collections.singletonMap("likes", travelPackage.getLikes()));
     }
 
 //    @GetMapping("/top-liked")

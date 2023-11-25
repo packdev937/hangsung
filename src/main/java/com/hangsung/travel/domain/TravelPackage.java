@@ -71,4 +71,8 @@ public class TravelPackage {
         this.likes = 0;
         this.createdAt = LocalDateTime.now();
     }
+
+    public void addLike() {
+        this.likes++;
+    }
 }

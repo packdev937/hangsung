@@ -3,6 +3,7 @@ package com.hangsung.travel.service;
 import com.hangsung.travel.domain.TravelPackage;
 import com.hangsung.travel.domain.repository.TravelRepository;
 import com.hangsung.travel.request.CreateTravelPackageRequest;
+import com.hangsung.travel.response.LikeCountResponse;
 import com.hangsung.user.domain.User;
 import com.hangsung.user.domain.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
@@ -36,7 +37,7 @@ public class TravelService {
         Long userId = (Long) session.getAttribute("userId");
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        MultipartFile file = createTravelPackageRequest.photo(); // MultipartFile을 포함하는 요청 객체
+        MultipartFile file = createTravelPackageRequest.photo();
         String fileName = storeFile(file);
 
         TravelPackage travelPackage = TravelPackage.builder()
@@ -66,6 +67,46 @@ public class TravelService {
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
         return fileName;
+    }
+
+    @Transactional
+    public TravelPackage addLike(Long travelPackageId) {
+        TravelPackage travelPackage = travelRepository.findById(travelPackageId).orElseThrow();
+        travelPackage.addLike();
+        return travelRepository.save(travelPackage);
+    }
+
+//    @PostMapping("/add-to-cart")
+//    public String addToCart(@RequestParam("packageId") Long packageId,
+//        HttpServletRequest request,
+//        HttpServletResponse response) {
+//        String cartId = getCartIdFromCookie(request);
+//
+//        if (cartId == null) {
+//            cartId = createNewCartId(); // 서버에서 새로운 장바구니 식별자 생성
+//            Cookie cartCookie = new Cookie("cartId", cartId);
+//            cartCookie.setMaxAge(7 * 24 * 60 * 60); // 쿠키 유효기간 설정
+//            cartCookie.setHttpOnly(true); // JavaScript 접근 방지
+//            cartCookie.setPath("/"); // 적용 경로 설정
+//            response.addCookie(cartCookie); // 쿠키 응답에 추가
+//        }
+//
+//        // 서버 측에서 장바구니 업데이트
+//        updateCart(cartId, packageId);
+//
+//        return "redirect:/cart";
+//    }
+
+    private String getCartIdFromCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+	if ("cartId".equals(cookie.getName())) {
+	    return cookie.getValue();
+	}
+            }
+        }
+        return null;
     }
 
 }
