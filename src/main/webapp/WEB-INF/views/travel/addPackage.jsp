@@ -3,15 +3,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Create Travel Package</title>
+    <title>여행 패키지 생성하기</title>
 </head>
 <body>
 
-<h2>Create Travel Package Form</h2>
+<h2>여행 패키지 생성</h2>
 
-<form action="/travel/create" method="post">
+<form action="/travel/create" method="post" enctype="multipart/form-data">
     <div>
-        <label for="title">Title:</label>
+        <label for="title">패키지 제목:</label>
         <input type="text" id="title" name="title">
     </div>
     <div>
@@ -25,8 +25,8 @@
         </select>
     </div>
     <div>
-        <label for="photoUrl">Photo URL:</label>
-        <input type="text" id="photoUrl" name="photoUrl">
+        <label for="photo">Photo URL:</label>
+        <input type="file" id="photo" name="photo">
     </div>
     <div>
         <label for="people">Recommended Number of People:</label>

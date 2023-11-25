@@ -12,11 +12,10 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update # 옵션은 필요에 따라 변경
+      ddl-auto: create # 옵션은 필요에 따라 변경
     properties:
       hibernate:
         format_sql: true
 
-logging:
   level:
     org.hibernate.SQL: debug

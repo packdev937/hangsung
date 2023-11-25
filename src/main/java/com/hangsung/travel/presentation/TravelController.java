@@ -5,6 +5,8 @@ import com.hangsung.city.service.CityService;
 import com.hangsung.travel.domain.TravelPackage;
 import com.hangsung.travel.request.CreateTravelPackageRequest;
 import com.hangsung.travel.service.TravelService;
+import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,15 +37,22 @@ public class TravelController {
 
     @PostMapping("travel/create")
     public String createTravelPackage(
-        @ModelAttribute CreateTravelPackageRequest createTravelPackageRequest) {
+        @ModelAttribute CreateTravelPackageRequest createTravelPackageRequest,
+        HttpSession session) {
         log.info("run createTravelPackage()");
-        Long createdPackageId = travelService.createTravelPackage(createTravelPackageRequest).getId();
-        return "redirect:/travel/" + createdPackageId;
+        try {
+            Long createdPackageId = travelService.createTravelPackage(createTravelPackageRequest,
+	session).getId();
+            return "redirect:/travel/" + createdPackageId;
+        } catch (IOException e) {
+            return "redirect:/";
+        }
     }
 
     @GetMapping("travel/{packageId}")
     public String showTravelPackageDetailForm(@PathVariable Long packageId, Model model) {
         log.info("run showTravelPackageDetailForm()");
+        log.info("packageId is " + packageId);
         TravelPackage travelPackage = travelService.getTravelPackage(packageId);
         model.addAttribute("travelPackage", travelPackage);
         return "/travel/detailPackage";
