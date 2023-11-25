@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final HttpSession session;
 
     public void signup(SignupRequest signupRequest) {
         if (userRepository.findByUsername(signupRequest.username()).isPresent()) {
@@ -31,7 +30,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void login(SigninRequest signinRequest) {
+    public User login(SigninRequest signinRequest) {
         User user = userRepository.findByUsername(signinRequest.username())
             .orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 아이디 입니다."));
 
@@ -39,6 +38,6 @@ public class UserService {
             throw new IllegalArgumentException("아이디 또는 비밀번호가 맞지 않습니다. 다시 입력해주세요.");
         }
 
-        session.setAttribute("user", user);
+        return user;
     }
 }

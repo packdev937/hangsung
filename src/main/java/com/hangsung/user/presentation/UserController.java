@@ -1,8 +1,10 @@
 package com.hangsung.user.presentation;
 
+import com.hangsung.user.domain.User;
 import com.hangsung.user.request.SigninRequest;
 import com.hangsung.user.request.SignupRequest;
 import com.hangsung.user.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
 
     private final UserService userService;
+    private final HttpSession httpSession;
 
     @GetMapping("/signup")
     public String showSignupForm() {
@@ -47,11 +50,12 @@ public class UserController {
     public String login(@ModelAttribute SigninRequest signinRequest,
         RedirectAttributes redirectAttributes) {
         try {
-            userService.login(signinRequest);
-            return "redirect:/login";
+            User user = userService.login(signinRequest);
+            httpSession.setAttribute("userId", user.getId());
+            return "redirect:/";
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("loginError", e.getMessage());
-            return "redirect:/signup";
+            return "redirect:/login";
         }
     }
 }
