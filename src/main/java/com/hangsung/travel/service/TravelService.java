@@ -3,7 +3,6 @@ package com.hangsung.travel.service;
 import com.hangsung.travel.domain.TravelPackage;
 import com.hangsung.travel.domain.repository.TravelRepository;
 import com.hangsung.travel.request.CreateTravelPackageRequest;
-import com.hangsung.travel.response.LikeCountResponse;
 import com.hangsung.user.domain.User;
 import com.hangsung.user.domain.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
@@ -14,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -74,6 +74,14 @@ public class TravelService {
         TravelPackage travelPackage = travelRepository.findById(travelPackageId).orElseThrow();
         travelPackage.addLike();
         return travelRepository.save(travelPackage);
+    }
+
+    public List<TravelPackage> getTopFiveLikedPackages() {
+        return travelRepository.findTop5ByOrderByLikesDesc();
+    }
+
+    public List<TravelPackage> getFiveRecentPackages() {
+        return travelRepository.findTop5ByOrderByCreatedAtDesc();
     }
 
 //    @PostMapping("/add-to-cart")

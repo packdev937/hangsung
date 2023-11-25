@@ -30,8 +30,6 @@ public class TravelController {
 
     @GetMapping("/travel/create")
     public String showCreateTravelPackageForm(Model model) {
-        log.info("run showCreateTravelPackageForm()");
-
         List<City> cities = cityService.findAllCities();
         model.addAttribute("cities", cities);
 
@@ -42,10 +40,9 @@ public class TravelController {
     public String createTravelPackage(
         @ModelAttribute CreateTravelPackageRequest createTravelPackageRequest,
         HttpSession session) {
-        log.info("run createTravelPackage()");
         try {
             Long createdPackageId = travelService.createTravelPackage(createTravelPackageRequest,
-	session).getId();
+                session).getId();
             return "redirect:/travel/" + createdPackageId;
         } catch (IOException e) {
             return "redirect:/";
@@ -62,23 +59,21 @@ public class TravelController {
     @PostMapping("/travel/addLike")
     public ResponseEntity<?> addLike(@RequestParam("travelPackageId") Long travelPackageId) {
         TravelPackage travelPackage = travelService.addLike(travelPackageId);
-        log.info("Likes 수 " + travelPackage.getLikes());
         return ResponseEntity.ok(Collections.singletonMap("likes", travelPackage.getLikes()));
     }
 
-//    @GetMapping("/top-liked")
-//    public String getTopLikedPackages() {
-//        List<TravelPackage> topPackages = travelService.getTopLikedPackages();
-//        ModelAndView mav = new ModelAndView("travel/top-liked");
-//        mav.addObject("topPackages", topPackages);
-//        return mav;
-//    }
-//
-//    @GetMapping("/recent")
-//    public ModelAndView getRecentPackages() {
-//        List<TravelPackage> recentPackages = travelService.getRecentPackages();
-//        ModelAndView mav = new ModelAndView("travel/recent");
-//        mav.addObject("recentPackages", recentPackages);
-//        return mav;
+    @GetMapping("/travel/liked-packages")
+    public String showTopFiveLikedPackages(Model model) {
+        List<TravelPackage> packages = travelService.getTopFiveLikedPackages();
+        model.addAttribute("packages", packages);
+        return "main/topFiveLikedPakages";
+    }
 
+    @GetMapping("/travel/recent-packages")
+    public String showFiveRecentPacakages(Model model) {
+        List<TravelPackage> packages = travelService.getFiveRecentPackages();
+        model.addAttribute("packages", packages);
+        return "main/topFiveRecentPackages";
+
+    }
 }
