@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,10 +32,9 @@ public class TravelService {
 
     @Transactional
     public TravelPackage createTravelPackage(
-        CreateTravelPackageRequest createTravelPackageRequest, HttpSession session)
+        CreateTravelPackageRequest createTravelPackageRequest, Long userId)
         throws IOException {
 
-        Long userId = (Long) session.getAttribute("userId");
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         MultipartFile file = createTravelPackageRequest.photo();
@@ -76,6 +76,19 @@ public class TravelService {
         return travelRepository.save(travelPackage);
     }
 
+    public void addCart(Long travelPackageId, HttpSession session) {
+        TravelPackage travelPackage = travelRepository.findById(travelPackageId)
+            .orElseThrow(() -> new IllegalArgumentException());
+
+        ArrayList<TravelPackage> cart = (ArrayList<TravelPackage>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
+        }
+
+        cart.add(travelPackage);
+    }
+
     public List<TravelPackage> getTopFiveLikedPackages() {
         return travelRepository.findTop5ByOrderByLikesDesc();
     }
@@ -84,26 +97,6 @@ public class TravelService {
         return travelRepository.findTop5ByOrderByCreatedAtDesc();
     }
 
-//    @PostMapping("/add-to-cart")
-//    public String addToCart(@RequestParam("packageId") Long packageId,
-//        HttpServletRequest request,
-//        HttpServletResponse response) {
-//        String cartId = getCartIdFromCookie(request);
-//
-//        if (cartId == null) {
-//            cartId = createNewCartId(); // 서버에서 새로운 장바구니 식별자 생성
-//            Cookie cartCookie = new Cookie("cartId", cartId);
-//            cartCookie.setMaxAge(7 * 24 * 60 * 60); // 쿠키 유효기간 설정
-//            cartCookie.setHttpOnly(true); // JavaScript 접근 방지
-//            cartCookie.setPath("/"); // 적용 경로 설정
-//            response.addCookie(cartCookie); // 쿠키 응답에 추가
-//        }
-//
-//        // 서버 측에서 장바구니 업데이트
-//        updateCart(cartId, packageId);
-//
-//        return "redirect:/cart";
-//    }
 
     private String getCartIdFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
@@ -116,5 +109,4 @@ public class TravelService {
         }
         return null;
     }
-
 }

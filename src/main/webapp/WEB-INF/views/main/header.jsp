@@ -24,9 +24,11 @@
       }
     </style>
 </head>
+
 <body>
 <div class="header-container">
     <div>
+        <p>안녕하세요! ${user.getNickname()}님</p>
         <a href="/mypage" class="header-link">
             <i class="fas fa-user header-icon"></i>마이페이지
         </a>

@@ -40,4 +40,9 @@ public class UserService {
 
         return user;
     }
+
+    public User findUserById(Long userId) {
+        return userRepository.findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 아이디 입니다."));
+    }
 }

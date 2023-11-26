@@ -14,7 +14,7 @@
           $.ajax({
             url: '/travel/addLike',
             type: 'POST',
-            data: { travelPackageId: '${travelPackage.id}' }, // 여기가 중요합니다
+            data: {travelPackageId: '${travelPackage.id}'},
             success: function () {
               var likesCount = parseInt($('#likes-count').text());
               $('#likes-count').text(likesCount + 1);
@@ -26,6 +26,25 @@
         });
       });
     </script>
+    <script>
+      $(document).ready(function () {
+        $('#add-cart-button').click(function () {
+          $.ajax({
+
+            url: '/travel/addCart',
+            type: 'POST',
+            data: {travelPackageId: '${travelPackage.id}'},
+            success: function () {
+              alert('장바구니에 추가되었습니다!');
+            },
+            error: function () {
+              alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+          });
+        });
+      });
+    </script>
+
 </head>
 <body>
 <div class="container mt-5">
@@ -42,6 +61,7 @@
                 <button id="like-button" class="btn btn-outline-primary">
                     <span id="likes-count">${travelPackage.likes}</span> 좋아요
                 </button>
+                <button id="add-cart-button" class="btn btn-success">장바구니에 추가하기</button>
                 <p>Created By: ${travelPackage.user.getNickname()}</p>
             </div>
         </div>

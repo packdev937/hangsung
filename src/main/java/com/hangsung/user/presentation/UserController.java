@@ -51,7 +51,8 @@ public class UserController {
     @PostMapping("/login")
     public String login(@ModelAttribute SigninRequest signinRequest,
         RedirectAttributes redirectAttributes,
-        HttpServletResponse response) {
+        HttpServletResponse response,
+        HttpSession session) {
         try {
             User user = userService.login(signinRequest);
             Cookie cookie = new Cookie("userId", user.getId().toString());
@@ -59,6 +60,8 @@ public class UserController {
             cookie.setMaxAge(24 * 60 * 60);
             response.addCookie(cookie);
 
+            List<TravelPackage> cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
 
             return "redirect:/";
         } catch (IllegalArgumentException e) {
