@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,8 +29,9 @@ public class TravelPackage {
     @Column(nullable = false)
     private String title;
 
-    @OneToOne
-    private City destination;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
+    private City city;
 
     @Column(nullable = false)
     private String filename;
@@ -57,10 +57,10 @@ public class TravelPackage {
     private LocalDateTime createdAt;
 
     @Builder
-    public TravelPackage(String title, City destination, String filename, String duration,
+    public TravelPackage(String title, City city, String filename, String duration,
         int people, String travelRoute, User user) {
         this.title = title;
-        this.destination = destination;
+        this.city = city;
         this.filename = filename;
         this.duration = duration;
         this.people = people;
@@ -74,5 +74,9 @@ public class TravelPackage {
 
     public void addLike() {
         this.likes++;
+    }
+
+    public void addCity(City city) {
+        this.city = city;
     }
 }

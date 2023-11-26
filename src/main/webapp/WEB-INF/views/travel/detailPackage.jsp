@@ -53,7 +53,7 @@
             <h1>${travelPackage.title}</h1>
             <img src="/upload/${travelPackage.filename}" alt="Travel Package Picture">
             <div>
-                <p>Destination: ${travelPackage.destination.name}</p>
+                <p>City: ${travelPackage.city.getName()}</p>
                 <p>Duration: ${travelPackage.duration} days</p>
                 <p>Recommended Number of People: ${travelPackage.people}</p>
                 <p>Travel Route: ${travelPackage.travelRoute}</p>

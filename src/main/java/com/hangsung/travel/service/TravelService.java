@@ -1,5 +1,7 @@
 package com.hangsung.travel.service;
 
+import com.hangsung.city.domain.City;
+import com.hangsung.city.domain.repository.CityRepository;
 import com.hangsung.travel.domain.TravelPackage;
 import com.hangsung.travel.domain.repository.TravelRepository;
 import com.hangsung.travel.request.CreateTravelPackageRequest;
@@ -28,6 +30,7 @@ public class TravelService {
 
     private final TravelRepository travelRepository;
     private final UserRepository userRepository;
+    private final CityRepository cityRepository;
     private final String uploadPath = "/Users/gundorit/upload";
 
     @Transactional
@@ -37,12 +40,15 @@ public class TravelService {
 
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+
         MultipartFile file = createTravelPackageRequest.photo();
         String fileName = storeFile(file);
+        City city = cityRepository.findById(Long.parseLong(createTravelPackageRequest.city()))
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 도시입니다."));
 
         TravelPackage travelPackage = TravelPackage.builder()
             .title(createTravelPackageRequest.title())
-            .destination(createTravelPackageRequest.destination())
+            .city(city)
             .filename(fileName)
             .people(createTravelPackageRequest.people())
             .duration(createTravelPackageRequest.duration())

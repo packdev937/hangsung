@@ -2,6 +2,9 @@ package com.hangsung.travel.presentation;
 
 import com.hangsung.city.domain.City;
 import com.hangsung.city.service.CityService;
+import com.hangsung.country.domain.Country;
+import com.hangsung.country.domain.repository.CountryRepository;
+import com.hangsung.country.service.CountryService;
 import com.hangsung.travel.domain.TravelPackage;
 import com.hangsung.travel.request.CreateTravelPackageRequest;
 import com.hangsung.travel.service.TravelService;
@@ -29,12 +32,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TravelController {
 
     private final TravelService travelService;
-    private final CityService cityService;
+    private final CountryService countryService;
 
     @GetMapping("/travel/create")
     public String showCreateTravelPackageForm(Model model) {
-        List<City> cities = cityService.findAllCities();
-        model.addAttribute("cities", cities);
+        List<Country> countries = countryService.findAllCountries();
+        model.addAttribute("countries", countries);
 
         return "/travel/addPackage";
     }
@@ -67,7 +70,6 @@ public class TravelController {
     @GetMapping("/travel/{travelPackageId}")
     public String showTravelPackageDetailForm(@PathVariable Long travelPackageId, Model model) {
         log.info("showTravelPackageDetails()");
-        log.info("packageID" + travelPackageId);
         TravelPackage travelPackage = travelService.getTravelPackage(travelPackageId);
         model.addAttribute("travelPackage", travelPackage);
         return "/travel/detailPackage";
