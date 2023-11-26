@@ -35,6 +35,7 @@
         <a href="/travel/create" class="header-link">
             <i class="fas fa-plus header-icon"></i>등록하기
         </a>
+        <a href="/logout">로그아웃</a>
     </div>
 </div>
 </body>

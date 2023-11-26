@@ -7,6 +7,7 @@ import com.hangsung.user.request.SignupRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +45,26 @@ public class UserService {
     public User findUserById(Long userId) {
         return userRepository.findById(userId)
             .orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 아이디 입니다."));
+    }
+
+    @Transactional
+    public void changePassword(Long userId, String newPassword) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 아이디 입니다."));
+
+        user.changePassword(newPassword);
+    }
+
+    @Transactional
+    public void changeNickname(Long userId, String newNickname) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new IllegalArgumentException("존재 하지 않는 아이디 입니다."));
+
+        user.changeNickname(newNickname);
+    }
+
+    @Transactional
+    public void deleteAccount(Long userId) {
+        userRepository.deleteById(userId);
     }
 }

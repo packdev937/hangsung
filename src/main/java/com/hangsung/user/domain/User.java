@@ -68,4 +68,12 @@ public class User {
     public void addTravelPackage(TravelPackage travelPackage) {
         this.createdPackages.add(travelPackage);
     }
+
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
+    }
+
+    public void changeNickname(String newNickname) {
+        this.nickname = newNickname;
+    }
 }
