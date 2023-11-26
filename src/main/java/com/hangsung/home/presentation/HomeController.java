@@ -3,6 +3,8 @@ package com.hangsung.home.presentation;
 import com.hangsung.user.domain.User;
 import com.hangsung.user.domain.repository.UserRepository;
 import com.hangsung.user.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +24,24 @@ public class HomeController {
     세션에 값이 없다면 로그인 창으로 리다이렉션 합니다.
      */
     @GetMapping("/")
-    public String home(Model model, HttpSession session) {
-        Long userId = (Long) session.getAttribute("userId");
+    public String home(Model model, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String userId = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+	if (cookie.getName().equals("userId")) {
+	    userId = cookie.getValue();
+	    break;
+	}
+            }
+        }
+
         if (userId == null) {
             return "redirect:/login";
         }
-        User user = userService.findUserById(userId);
+
+        User user = userService.findUserById(Long.parseLong(userId));
         model.addAttribute("user", user);
         return "/main/home";
     }

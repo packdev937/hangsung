@@ -4,6 +4,8 @@ import com.hangsung.user.domain.User;
 import com.hangsung.user.request.SigninRequest;
 import com.hangsung.user.request.SignupRequest;
 import com.hangsung.user.service.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,14 +50,25 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute SigninRequest signinRequest,
-        RedirectAttributes redirectAttributes) {
+        RedirectAttributes redirectAttributes,
+        HttpServletResponse response) {
         try {
             User user = userService.login(signinRequest);
-            httpSession.setAttribute("userId", user.getId());
+            Cookie cookie = new Cookie("userId", user.getId().toString());
+            cookie.setHttpOnly(true);
+            cookie.setMaxAge(24 * 60 * 60);
+            response.addCookie(cookie);
+
+
             return "redirect:/";
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("loginError", e.getMessage());
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/mypage")
+    public String mypage() {
+        return "user/mypage";
     }
 }
