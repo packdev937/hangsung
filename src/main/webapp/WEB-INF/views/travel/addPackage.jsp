@@ -56,8 +56,19 @@
     </div>
     <div>
         <label for="duration">Duration</label>
-        <input type="text" id="duration" name="duration">
+        <select id="duration" name="duration">
+            <option value="1">1박 2일</option>
+            <option value="2">2박 3일</option>
+            <option value="3">3박 4일</option>
+            <option value="4">4박 5일</option>
+            <option value="5">5박 6일</option>
+            <option value="6">6박 7일</option>
+            <option value="7">7박 8일</option>
+            <option value="8">8박 9일</option>
+            <option value="9">9박 10일</option>
+        </select>
     </div>
+
     <div>
         <label for="travelRoute">Travel Route:</label>
         <textarea id="travelRoute" name="travelRoute"></textarea>
