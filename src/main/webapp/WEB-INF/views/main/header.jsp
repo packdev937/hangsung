@@ -1,42 +1,18 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Header</title>
-    <link rel="stylesheet" href="./resources/css/bootstrap.min.css"/>
-    <style>
-      .header-container {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end; /* 수정된 부분 */
-        padding: 10px;
-      }
+<%@page contentType="text/html; charset=utf-8" %>
 
-      .header-link {
-        text-decoration: none;
-        color: black;
-        margin-left: 15px;
-      }
-
-      .header-icon {
-        margin-right: 8px;
-      }
-    </style>
-</head>
-
-<body>
-<div class="header-container">
-    <div>
-        <p>안녕하세요! ${user.getNickname()}님</p>
-        <a href="/mypage" class="header-link">
-            <i class="fas fa-user header-icon"></i>마이페이지
-        </a>
-        <a href="/travel/create" class="header-link">
-            <i class="fas fa-plus header-icon"></i>등록하기
-        </a>
-        <a href="/logout">로그아웃</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/" style="font-size:24px; font-weight:bold">행성</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link active"
+                                        aria-current="page" href="/">홈</a></li>
+                <li class="nav-item"><a class="nav-link"
+                                        href="/travel/create">패키지 작성하기</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">장바구니</a></li>
+                <li class="nav-item"><a class="nav-link" href="/mypage">마이페이지</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
+            </ul>
+        </div>
     </div>
-</div>
-</body>
-</html>
+</nav>
