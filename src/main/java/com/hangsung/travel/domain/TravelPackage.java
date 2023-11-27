@@ -43,6 +43,9 @@ public class TravelPackage {
     private int people;
 
     @Column(nullable = false)
+    private int price;
+
+    @Column(nullable = false)
     private int likes;
 
     @Column(nullable = false)
@@ -58,13 +61,14 @@ public class TravelPackage {
 
     @Builder
     public TravelPackage(String title, City city, String filename, String duration,
-        int people, String travelRoute, User user) {
+        int people, String travelRoute, int price, User user) {
         this.title = title;
         this.city = city;
         this.filename = filename;
         this.duration = duration;
         this.people = people;
         this.travelRoute = travelRoute;
+        this.price = price;
         this.user = user;
 
         // Initialization

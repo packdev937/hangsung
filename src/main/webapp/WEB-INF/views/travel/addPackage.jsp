@@ -67,11 +67,11 @@
                         </select>
                     </div>
 
-                    <%--                    <hr class="my-3">--%>
-                    <%--                    <div class="form-group row">--%>
-                    <%--                        <h5>가격</h5>--%>
-                    <%--                        <input type="text" name="packagePrice" class="form-control">--%>
-                    <%--                    </div>--%>
+                    <hr class="my-3">
+                    <div class="form-group row">
+                        <h5>가격</h5>
+                        <input type="text" name="price" class="form-control">
+                    </div>
 
                     <hr class="my-3">
                     <div class="form-group row">

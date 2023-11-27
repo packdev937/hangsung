@@ -53,6 +53,7 @@ public class TravelService {
             .people(createTravelPackageRequest.people())
             .duration(createTravelPackageRequest.duration())
             .travelRoute(createTravelPackageRequest.travelRoute())
+            .price(createTravelPackageRequest.price())
             .user(user)
             .build();
 

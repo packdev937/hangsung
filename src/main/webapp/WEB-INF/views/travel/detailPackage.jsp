@@ -62,8 +62,8 @@
                 <div class="small mb-1">${travelPackage.user.getNickname()}</div>
                 <h1 class="display-6 fw-bolder">${travelPackage.title}</h1>
                 <div class="fs-5 mb-5">
-                    <span class="text-decoration-line-through">69,000원</span>
-                    <span>  59,000원</span>
+                    <span class="text-decoration-line-through">${travelPackage.price}</span>
+                    <span> ${travelPackage.price-10000}</span>
                 </div>
                 <p>
                 <h5>여행지 : ${travelPackage.city.getName()}</h5>
@@ -82,8 +82,6 @@
                 </div>
                 <hr class="my-3">
                 <div class="d-flex">
-                    <input class="form-control text-center me-3" id="inputQuantity" type="num"
-                           value="1" style="max-width: 3rem"/>
                     <button class="btn btn-outline-dark flex-shrink-0" type="button">
                         <i class="bi-cart-fill me-1"></i>
                         패키지 구매하기
