@@ -4,7 +4,7 @@
     <link href="../.././resources/css/style.css" rel="stylesheet" type="text/css"/>
     <style>
       .bg-dark-with-image {
-        background-image: url('/upload/banner.png');
+        background-image: url('../.././resources/images/banner.png');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
