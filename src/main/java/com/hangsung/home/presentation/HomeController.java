@@ -6,6 +6,7 @@ import com.hangsung.user.domain.User;
 import com.hangsung.user.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,5 +53,14 @@ public class HomeController {
         User user = userService.findUserById(Long.parseLong(userId));
         model.addAttribute("user", user);
         return "/main/home";
+    }
+
+    @GetMapping("/cart")
+    public String cart(Model model, HttpSession session) {
+        List<TravelPackage> cart = (List<TravelPackage>) session.getAttribute("cart");
+        log.info("Cart size : " + cart.size());
+        model.addAttribute("cart", cart);
+
+        return "/main/cart";
     }
 }

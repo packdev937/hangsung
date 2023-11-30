@@ -105,16 +105,17 @@ public class TravelService {
         return travelRepository.findTop5ByOrderByCreatedAtDesc();
     }
 
+    public void removeCart(Long travelPackageId, HttpSession session) {
+        TravelPackage travelPackage = travelRepository.findById(travelPackageId)
+            .orElseThrow(() -> new IllegalArgumentException());
 
-    private String getCartIdFromCookie(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-	if ("cartId".equals(cookie.getName())) {
-	    return cookie.getValue();
-	}
-            }
+        ArrayList<TravelPackage> cart = (ArrayList<TravelPackage>) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
         }
-        return null;
+        cart.remove(travelPackage);
+
+        log.info("Cart size after removing package : " + cart.size());
     }
 }

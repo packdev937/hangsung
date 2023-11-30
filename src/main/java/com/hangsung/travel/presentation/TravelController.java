@@ -85,11 +85,22 @@ public class TravelController {
     public ResponseEntity<?> addCart(@RequestParam("travelPackageId") Long travelPackageId,
         HttpSession session) {
         try {
-            log.info("packageID in addCart" + travelPackageId);
+            log.info("packageId in addCart : " + travelPackageId);
             travelService.addCart(travelPackageId, session);
             return ResponseEntity.ok("장바구니에 추가되었습니다.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생");
+        }
+    }
+
+    @PostMapping("/travel/removeCart")
+    public String removeCart(@RequestParam("packageId") Long travelPackageId,
+        HttpSession session) {
+        try {
+            travelService.removeCart(travelPackageId, session);
+            return "redirect:/cart";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/errorPage";
         }
     }
 }
