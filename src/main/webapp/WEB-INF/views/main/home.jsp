@@ -14,8 +14,8 @@
 <body>
 <jsp:include page="header.jsp"/>
 <jsp:include page="banner.jsp"/>
-<jsp:include page="recentFivePackages.jsp"/>
 <jsp:include page="topFivePackages.jsp"/>
+<jsp:include page="recentFivePackages.jsp"/>
 <jsp:include page="footer.jsp"/>
 
 <!-- Bootstrap core JS-->

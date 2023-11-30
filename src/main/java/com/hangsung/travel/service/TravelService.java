@@ -54,6 +54,7 @@ public class TravelService {
             .duration(createTravelPackageRequest.duration())
             .travelRoute(createTravelPackageRequest.travelRoute())
             .price(createTravelPackageRequest.price())
+            .likes(0)
             .user(user)
             .build();
 

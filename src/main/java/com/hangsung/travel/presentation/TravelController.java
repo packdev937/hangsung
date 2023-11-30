@@ -92,19 +92,4 @@ public class TravelController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생");
         }
     }
-
-
-    @GetMapping("/travel/liked-packages")
-    public String showTopFiveLikedPackages(Model model) {
-        List<TravelPackage> packages = travelService.getTopFiveLikedPackages();
-        model.addAttribute("packages", packages);
-        return "main/topFiveLikedPakages";
-    }
-
-    @GetMapping("/travel/recent-packages")
-    public String showFiveRecentPacakages(Model model) {
-        List<TravelPackage> packages = travelService.getFiveRecentPackages();
-        model.addAttribute("packages", packages);
-        return "main/topFiveRecentPackages";
-    }
 }

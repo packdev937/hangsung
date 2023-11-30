@@ -61,7 +61,7 @@ public class TravelPackage {
 
     @Builder
     public TravelPackage(String title, City city, String filename, String duration,
-        int people, String travelRoute, int price, User user) {
+        int people, String travelRoute, int likes, int price, User user) {
         this.title = title;
         this.city = city;
         this.filename = filename;
@@ -72,7 +72,7 @@ public class TravelPackage {
         this.user = user;
 
         // Initialization
-        this.likes = 0;
+        this.likes = likes;
         this.createdAt = LocalDateTime.now();
     }
 
