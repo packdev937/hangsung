@@ -7,7 +7,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/hangsung
     username: root
-    password: Rjsn937129!
+    password: Codms671@@
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

@@ -21,6 +21,10 @@
                             <!-- Package name -->
                             <h5 class="fw-bolder">${pkg.getTitle()}</h5>
                         </div>
+                        <div class="text-center">
+                            <!-- Package Creation Time 시계 옆에 시간띄우는 로직만 넣으면 됨 -->
+                            <h6>⏰ </h6>-
+                        </div>
                     </div>
                     <!-- Product actions -->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">

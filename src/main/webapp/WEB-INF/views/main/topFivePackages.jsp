@@ -10,7 +10,7 @@
 		<c:forEach var="pkg" items="${likedPackages}">
 			<div class="col mb-5">
 				<div class="card h-100">
-					<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">New</div>
+					<div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Hot</div>
 					<!-- Package image -->
 					<img class="card-img-top" src="/upload/${pkg.getFilename()}" alt="..." />
 					<!-- Package details -->
@@ -18,6 +18,10 @@
 						<div class="text-center">
 							<!-- Package name -->
 							<h5 class="fw-bolder">${pkg.getTitle()}</h5>
+						</div>
+						<div class="text-center">
+							<!-- Like Count -->
+							<h6>❤️ ${pkg.getLikes()}</h6>
 						</div>
 					</div>
 					<!-- Product actions -->
