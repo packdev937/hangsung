@@ -50,11 +50,12 @@
         </div>
     </c:when>
     <c:otherwise>
+    <hr class="my-3">
     <div class="container d-flex align-items-center flex-column">
-        <img src="../.././resources/images/emptyCart.png" style="height: 300px; width: 300px; margin-bottom: 100px"/>
-        <h4 class="fw-bold text-start mb-3 ps-0">장바구니가 텅 비었어요 </h4>
+        <img src="../.././resources/images/emptyCart.png" style="height: 300px; width: 300px; margin-bottom: 80px"/>
+        <h4 class="fw-bold text-start mb-3 ps-0">장바구니가 텅 비었어요 🥲</h4>
         <button href="../home.jsp" type="button" class="btn btn-outline-secondary mb-3">패키지 구경하러 가기 🛒</button>
-        <h6 class="text-start mb-3 ps-0 text-secondary">아래의 패키지도 구경해보세요 ⬇️</h6>
+        <h6 class="text-start mb-3 ps-0 text-secondary" style="font-size: 0.9em">아래의 패키지도 구경해보세요 ⬇️</h6>
     </div>
 </div>
 <jsp:include page="../main/recommendPackages.jsp"/>

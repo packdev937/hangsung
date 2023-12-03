@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="row gx-4 gx-lg-5 align-items-center">
-                        <h1 class="display-6 fw-bolder">✏️여행 패키지 등록</h1>
+                        <h1 class="display-6 fw-bolder">✏️ 여행 패키지 등록</h1>
                         <p><br></p>
                         <div class="form-group row">
                             <h5>패키지 제목</h5>
