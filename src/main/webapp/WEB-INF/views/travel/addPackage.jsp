@@ -15,11 +15,64 @@
           rel="stylesheet"/>
     <link href="../.././resources/css/style.css" rel="stylesheet" type="text/css"/>
 </head>
+<script type="text/javascript">
+    function checkDigit() {
+        var price = document.getElementById('price').value;
+        if (isNaN(price) || price == "") {
+            alert("가격은 숫자만 입력해야 합니다.");
+            return false;
+        }
+
+        return true;
+    }
+
+    function checkIfEmpty() {
+        var price = document.getElementById('price').value;
+        var title = document.getElementById('title').value;
+        var country = document.getElementById('country').value;
+        var city = document.getElementById('city').value;
+        var people = document.getElementById('people').value;
+        var duration = document.getElementById('duration').value;
+        var travelRoute = document.getElementById('travelRoute').value;
+
+        if (!price.trim()) {
+            alert("가격을 입력해야 합니다.");
+            return false;
+        }
+        if (!title.trim()) {
+            alert("패키지 제목을 입력해야 합니다.");
+            return false;
+        }
+        if (!country.trim()) {
+            alert("나라를 선택해야 합니다.");
+            return false;
+        }
+        if (!city.trim()) {
+            alert("도시를 선택해야 합니다.");
+            return false;
+        }
+        if (!people.trim()) {
+            alert("추천 인원 수를 입력해야 합니다.");
+            return false;
+        }
+        if (!duration.trim()) {
+            alert("여행 기간을 선택해야 합니다.");
+            return false;
+        }
+        if (!travelRoute.trim()) {
+            alert("여행 경로를 입력해야 합니다.");
+            return false;
+        }
+
+        return true; // 모든 검사를 통과하면 true를 반환
+    }
+</script>
+
 <body>
 <jsp:include page="../main/header.jsp"></jsp:include>
 
 <section class="py-5">
-    <form action="/travel/create" method="post" enctype="multipart/form-data">
+    <form action="/travel/create" method="post" enctype="multipart/form-data" onsubmit="return checkDigit() && checkIfEmpty()">
         <div class="container px-4 px-lg-5 my-5">
             <div class="row">
                 <div class="col-md-6">
@@ -71,13 +124,13 @@
                         <hr class="my-3">
                         <div class="form-group row">
                             <h5>가격</h5>
-                            <input type="text" name="price" class="form-control" style="width: 50%">
+                            <input type="text" id="price" name="price" class="form-control" style="width: 50%" >
                         </div>
 
                         <hr class="my-3">
                         <div class="form-group row">
                             <h5>추천 인원 수</h5>
-                            <input type="text" name="people" class="form-control" style="width: 50%">
+                            <input type="text" id="people" name="people" class="form-control" style="width: 50%">
                         </div>
 
                         <hr class="my-3">
