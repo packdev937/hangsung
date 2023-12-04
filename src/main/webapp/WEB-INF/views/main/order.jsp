@@ -19,40 +19,51 @@
 <div class="container">
     <h1 class="display-6 fw-bolder" style="margin-top: 30px; margin-bottom: 30px"> 🛒 구매 내역</h1>
     <c:choose>
-        <c:when test="${not empty order}">
-            <table class="table" style="background-color: #f3f3f3">
-                <thead>
+    <c:when test="${not empty order}">
+        <table class="table table-striped table-hover" style="background-color: #f3f3f3">
+            <thead>
+            <tr>
+                <th>패키지명</th>
+                <th>가격</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="pkg" items="${order}">
                 <tr>
-                    <th>패키지명</th>
-                    <th>가격</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="pkg" items="${order}">
-                    <tr>
-                        <td>${pkg.title}</td>
-                        <td>${pkg.price}</td>
+                    <td>${pkg.title}</td>
+                    <td>${pkg.price}</td>
 
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-            <%
-                double totalPrice = 0;
-                List<TravelPackage> orderItems = (List<TravelPackage>) request.getAttribute(
-                        "order");
-                for (TravelPackage pkg : orderItems) {
-                    totalPrice += pkg.getPrice();
-                }
-                request.setAttribute("totalPrice", (int) totalPrice);
-            %>
-        </c:when>
-    </c:choose>
-    <div style="margin-top: 50px; margin-bottom: 100px; display: flex; justify-content: space-between; align-items: center">
-        <h2 style="margin-right: auto;">총 가격: ${totalPrice}</h2>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+        <%
+            double totalPrice = 0;
+            List<TravelPackage> orderItems = (List<TravelPackage>) request.getAttribute(
+                    "order");
+            for (TravelPackage pkg : orderItems) {
+                totalPrice += pkg.getPrice();
+            }
+            request.setAttribute("totalPrice", (int) totalPrice);
+        %>
+        <div style="margin-top: 50px; margin-bottom: 100px; display: flex; justify-content: space-between; align-items: center">
+            <h2 style="margin-right: auto;">총 가격: ${totalPrice}</h2>
+        </div>
+    </c:when>
+    <c:otherwise>
+    <hr class="my-3">
+    <div class="container d-flex align-items-center flex-column mb-5">
+        <img src="../../../resources/images/emptyPurchase1.png"
+             style="height: 400px; width: 700px; margin-bottom: 80px; margin-top:50px"/>
+        <h4 class="fw-bold text-start mb-4 ps-0">아직 구매한 패키지가 없어요 😳</h4>
+        <button href="/" type="button" class="btn btn-outline-secondary mb-4">패키지 구경하러 가기
+            🛒
+        </button>
     </div>
+</div>
+</c:otherwise>
+</c:choose>
 </div>
 <jsp:include page="footer.jsp"/>
 </body>
-
 </html>
