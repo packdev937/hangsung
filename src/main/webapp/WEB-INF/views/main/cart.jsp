@@ -11,6 +11,43 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
           rel="stylesheet"/>
     <link href="../.././resources/css/style.css" rel="stylesheet" type="text/css"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#remove-package-button').click(function () {
+          var packageId = $(this).data('package-id');
+          $.ajax({
+            url: '/travel/removeCart',
+            type: 'POST',
+            data: {travelPackageId: packageId},
+            success: function () {
+              alert('삭제 완료');
+              window.location.reload();
+            },
+            error: function () {
+              alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+          });
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $('#order-packages-button').click(function () {
+          $.ajax({
+            url: '/travel/orderCart',
+            type: 'POST',
+                success: function () {
+              alert('구매가 완료되었습니다.');
+              window.location.reload();
+            },
+            error: function () {
+              alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+          });
+        });
+      });
+    </script>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
@@ -32,30 +69,32 @@
                     <td>${pkg.title}</td>
                     <td>${pkg.price}</td>
                     <td>
-                        <form action="/travel/removeCart" method="post">
-                            <input type="hidden" name="packageId" value="${pkg.id}"/>
-                            <input type="submit" class="btn btn-danger" value="삭제"/>
-                        </form>
+                        <button id="remove-package-button" class="btn btn-success"
+                                data-package-id="${pkg.id}"> 삭제하기
+                        </button>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <div style="margin-top: 50px; margin-bottom: 100px; display: flex; justify-content: space-between; align-items: center">
+        <div style=" margin-top: 50px; margin-bottom: 100px; display: flex; justify-content:
+                        space-between; align-items: center
+                ">
             <h2 style="margin-right: auto;">총 가격: ${totalPrice}</h2>
-            <!-- 결제 페이지로 이동하는 버튼 또는 링크 -->
-            <form action="/travel/checkout" method="post" style="margin-left: auto; margin-right: 200px">
-                <button type="submit" class="btn btn-primary">결제하기</button>
-            </form>
+            <button id="order-packages-button" class="btn btn-success"> 결제하기</button>
         </div>
     </c:when>
     <c:otherwise>
     <hr class="my-3">
     <div class="container d-flex align-items-center flex-column">
-        <img src="../.././resources/images/emptyCart.png" style="height: 300px; width: 300px; margin-bottom: 80px"/>
+        <img src="../.././resources/images/emptyCart.png"
+             style="height: 300px; width: 300px; margin-bottom: 80px"/>
         <h4 class="fw-bold text-start mb-3 ps-0">장바구니가 텅 비었어요 🥲</h4>
-        <button href="../home.jsp" type="button" class="btn btn-outline-secondary mb-3">패키지 구경하러 가기 🛒</button>
-        <h6 class="text-start mb-3 ps-0 text-secondary" style="font-size: 0.9em">아래의 패키지도 구경해보세요 ⬇️</h6>
+        <button href="../home.jsp" type="button" class="btn btn-outline-secondary mb-3">패키지 구경하러 가기
+            🛒
+        </button>
+        <h6 class="text-start mb-3 ps-0 text-secondary" style="font-size: 0.9em">아래의 패키지도 구경해보세요
+            ⬇️</h6>
     </div>
 </div>
 <jsp:include page="../main/recommendPackages.jsp"/>

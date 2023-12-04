@@ -79,8 +79,4 @@ public class TravelPackage {
     public void addLike() {
         this.likes++;
     }
-
-    public void addCity(City city) {
-        this.city = city;
-    }
 }

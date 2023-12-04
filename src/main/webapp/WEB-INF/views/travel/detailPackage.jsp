@@ -47,6 +47,23 @@
         });
       });
     </script>
+    <script>
+      $(document).ready(function () {
+        $('#order-button').click(function () {
+          $.ajax({
+            url: '/travel/order',
+            type: 'POST',
+            data: {travelPackageId: '${travelPackage.id}'},
+            success: function () {
+              alert('구매 완료');
+            },
+            error: function () {
+              alert('오류가 발생했습니다. 다시 시도해주세요.');
+            }
+          });
+        });
+      });
+    </script>
 </head>
 <body>
 
@@ -82,7 +99,8 @@
                 </div>
                 <hr class="my-3">
                 <div class="d-flex">
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
+                    <button id="order-button" class="btn btn-outline-dark flex-shrink-0"
+                            type="button">
                         <i class="bi-cart-fill me-1"></i>
                         패키지 구매하기
                     </button>
@@ -91,8 +109,8 @@
         </div>
     </div>
 </section>
-<jsp:include page="../main/recommendPackages.jsp"/>
-<%-- <jsp:include page = "footer.jsp" /> --%>
+<%--<jsp:include page="../main/recommendPackages.jsp"/>--%>
+<jsp:include page="../main/footer.jsp"/>
 
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

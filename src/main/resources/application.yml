@@ -5,10 +5,10 @@ spring:
       suffix: .jsp
 
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/hangsung
     username: root
-    password: Codms671@@
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: Rjsn937129!
 
   jpa:
     hibernate:

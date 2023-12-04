@@ -106,16 +106,45 @@ public class TravelService {
     }
 
     public void removeCart(Long travelPackageId, HttpSession session) {
-        TravelPackage travelPackage = travelRepository.findById(travelPackageId)
-            .orElseThrow(() -> new IllegalArgumentException());
-
         ArrayList<TravelPackage> cart = (ArrayList<TravelPackage>) session.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
             session.setAttribute("cart", cart);
         }
-        cart.remove(travelPackage);
+        int idx = 0;
+        for (TravelPackage pkg : cart) {
+            if (pkg.getId() == travelPackageId) {
+	cart.remove(idx);
+	break;
+            }
+            idx++;
+        }
 
         log.info("Cart size after removing package : " + cart.size());
+    }
+
+    public void orderPacakge(Long travelPackageId, HttpSession session) {
+        TravelPackage travelPackage = travelRepository.findById(travelPackageId)
+            .orElseThrow(() -> new IllegalArgumentException());
+
+        ArrayList<TravelPackage> orderList = (ArrayList<TravelPackage>) session.getAttribute(
+            "order");
+
+        orderList.add(travelPackage);
+    }
+
+    public void orderCart(HttpSession session) {
+        ArrayList<TravelPackage> cartList = (ArrayList<TravelPackage>) session.getAttribute("cart");
+        ArrayList<TravelPackage> orderList = (ArrayList<TravelPackage>) session.getAttribute(
+            "order");
+
+        for (TravelPackage pkg : cartList) {
+            orderList.add(pkg);
+        }
+
+        cartList = new ArrayList<>();
+        session.setAttribute("cart", cartList);
+        log.info("cartSize after order All Packages : " + cartList.size());
+        return;
     }
 }

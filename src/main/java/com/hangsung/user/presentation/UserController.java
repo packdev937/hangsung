@@ -57,7 +57,7 @@ public class UserController {
         try {
             User user = userService.login(signinRequest);
             createCookie(response, "userId", user.getId().toString(), 24 * 60 * 60);
-            initializeCart(session);
+            initialize(session);
             return "redirect:/";
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("loginError", e.getMessage());
@@ -72,9 +72,12 @@ public class UserController {
         response.addCookie(cookie);
     }
 
-    private void initializeCart(HttpSession session) {
+    private void initialize(HttpSession session) {
         List<TravelPackage> cart = new ArrayList<>();
         session.setAttribute("cart", cart);
+
+        List<TravelPackage> order = new ArrayList<>();
+        session.setAttribute("order", order);
     }
 
     @GetMapping("/logout")

@@ -94,11 +94,33 @@ public class TravelController {
     }
 
     @PostMapping("/travel/removeCart")
-    public String removeCart(@RequestParam("packageId") Long travelPackageId,
+    public String removeCart(@RequestParam("travelPackageId") Long travelPackageId,
         HttpSession session) {
         try {
+            log.info("removeCart()");
             travelService.removeCart(travelPackageId, session);
             return "redirect:/cart";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/errorPage";
+        }
+    }
+
+    @PostMapping("/travel/order")
+    public String orderPackage(@RequestParam("travelPackageId") Long travelPackageId,
+        HttpSession session) {
+        try {
+            travelService.orderPacakge(travelPackageId, session);
+            return "redirect:/order";
+        } catch (IllegalArgumentException e) {
+            return "redirect:/errorPage";
+        }
+    }
+
+    @PostMapping("/travel/orderCart")
+    public String orderCart(HttpSession session) {
+        try {
+            travelService.orderCart(session);
+            return "redirect:/";
         } catch (IllegalArgumentException e) {
             return "redirect:/errorPage";
         }

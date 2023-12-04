@@ -12,6 +12,7 @@
                 <li class="nav-item"><a class="nav-link"
                                         href="/travel/create">패키지 작성하기</a></li>
                 <li class="nav-item"><a class="nav-link" href="/cart">장바구니</a></li>
+                <li class="nav-item"><a class="nav-link" href="/order">구매내역</a></li>
                 <li class="nav-item"><a class="nav-link" href="/mypage">마이페이지</a></li>
                 <li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
             </ul>

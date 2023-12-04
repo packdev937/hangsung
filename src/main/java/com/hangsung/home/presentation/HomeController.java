@@ -57,10 +57,19 @@ public class HomeController {
 
     @GetMapping("/cart")
     public String cart(Model model, HttpSession session) {
-        List<TravelPackage> cart = (List<TravelPackage>) session.getAttribute("cart");
-        log.info("Cart size : " + cart.size());
-        model.addAttribute("cart", cart);
+        List<TravelPackage> cartList = (List<TravelPackage>) session.getAttribute("cart");
+        log.info("CartList size : " + cartList.size());
+        model.addAttribute("cart", cartList);
 
         return "/main/cart";
+    }
+
+    @GetMapping("/order")
+    public String order(Model model, HttpSession session) {
+        List<TravelPackage> orderList = (List<TravelPackage>) session.getAttribute("order");
+        log.info("orderList size : " + orderList.size());
+        model.addAttribute("order", orderList);
+
+        return "/main/order";
     }
 }
