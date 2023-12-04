@@ -2,8 +2,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand" href="/" style="font-size:24px; font-weight:bold">
-            <img src="../.././resources/images/planet.jpg" alt="Home Icon" class="img-fluid" style="width:50px; height:50px">
-            <%-- <a class="navbar-brand" href="/" style="font-size:24px; font-weight:bold">행성</a> --%>
+            <img src="../.././resources/images/planet.jpg" alt="Home Icon" class="img-fluid"
+                 style="width:50px; height:50px">
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">

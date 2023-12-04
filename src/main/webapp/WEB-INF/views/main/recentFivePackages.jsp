@@ -23,7 +23,8 @@
                         <div class="text-center">
                             <%
                                 LocalDateTime current = LocalDateTime.now();
-                                TravelPackage packageItem = (TravelPackage) pageContext.getAttribute("pkg");
+                                TravelPackage packageItem = (TravelPackage) pageContext.getAttribute(
+                                        "pkg");
                                 LocalDateTime pkgTime = packageItem.getCreatedAt();
                                 long hours = ChronoUnit.HOURS.between(pkgTime, current);
                                 long days = ChronoUnit.DAYS.between(pkgTime, current);

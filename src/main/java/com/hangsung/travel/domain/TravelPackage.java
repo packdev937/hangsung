@@ -14,10 +14,12 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class TravelPackage {
 

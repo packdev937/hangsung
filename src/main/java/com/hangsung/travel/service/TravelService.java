@@ -7,16 +7,19 @@ import com.hangsung.travel.domain.repository.TravelRepository;
 import com.hangsung.travel.request.CreateTravelPackageRequest;
 import com.hangsung.user.domain.User;
 import com.hangsung.user.domain.repository.UserRepository;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,7 @@ public class TravelService {
     private final TravelRepository travelRepository;
     private final UserRepository userRepository;
     private final CityRepository cityRepository;
+    private final DataSource dataSource;
     private final String uploadPath = "/Users/gundorit/upload";
 
     @Transactional
@@ -97,12 +101,143 @@ public class TravelService {
         cart.add(travelPackage);
     }
 
-    public List<TravelPackage> getTopFiveLikedPackages() {
-        return travelRepository.findTop5ByOrderByLikesDesc();
+    public List<TravelPackage> getTopFiveLikedPackages() throws SQLException {
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+        } catch (SQLException e) {
+            return null;
+        }
+        List<TravelPackage> packages = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "SELECT * FROM travel_package ORDER BY likes DESC LIMIT 5";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+	TravelPackage travelPackage = new TravelPackage();
+	travelPackage.setId(rs.getLong("travel_id"));
+	travelPackage.setTitle(rs.getString("title"));
+	travelPackage.setFilename(rs.getString("filename"));
+	travelPackage.setDuration(rs.getString("duration"));
+	travelPackage.setPeople(rs.getInt("people"));
+	travelPackage.setPrice(rs.getInt("price"));
+	travelPackage.setLikes(rs.getInt("likes"));
+	travelPackage.setTravelRoute(rs.getString("travel_route"));
+	travelPackage.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+
+	Long cityId = rs.getLong("city_id");
+	City city = cityRepository.findById(cityId)
+	    .orElseThrow(() -> new IllegalArgumentException());
+	travelPackage.setCity(city);
+
+	Long userId = rs.getLong("user_id");
+	User user = userRepository.findById(userId)
+	    .orElseThrow(() -> new IllegalArgumentException());
+	travelPackage.setUser(user);
+
+	packages.add(travelPackage);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+	try {
+	    rs.close();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+            }
+            if (pstmt != null) {
+	try {
+	    pstmt.close();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+            }
+            if (conn != null) {
+	try {
+	    conn.close();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+            }
+        }
+
+        return packages;
     }
 
-    public List<TravelPackage> getFiveRecentPackages() {
-        return travelRepository.findTop5ByOrderByCreatedAtDesc();
+    public List<TravelPackage> getFiveRecentPackages() throws SQLException {
+        Connection conn = null;
+        try {
+            conn = dataSource.getConnection();
+        } catch (SQLException e) {
+            return null;
+        }
+        List<TravelPackage> packages = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            String sql = "SELECT * FROM travel_package ORDER BY created_at DESC LIMIT 5";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+	TravelPackage travelPackage = new TravelPackage();
+	travelPackage.setId(rs.getLong("travel_id"));
+	travelPackage.setTitle(rs.getString("title"));
+	travelPackage.setFilename(rs.getString("filename"));
+	travelPackage.setDuration(rs.getString("duration"));
+	travelPackage.setPeople(rs.getInt("people"));
+	travelPackage.setPrice(rs.getInt("price"));
+	travelPackage.setLikes(rs.getInt("likes"));
+	travelPackage.setTravelRoute(rs.getString("travel_route"));
+	travelPackage.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+
+	Long cityId = rs.getLong("city_id");
+	City city = cityRepository.findById(cityId)
+	    .orElseThrow(() -> new IllegalArgumentException());
+	travelPackage.setCity(city);
+
+	Long userId = rs.getLong("user_id");
+	User user = userRepository.findById(userId)
+	    .orElseThrow(() -> new IllegalArgumentException());
+	travelPackage.setUser(user);
+
+	packages.add(travelPackage);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+	try {
+	    rs.close();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+            }
+            if (pstmt != null) {
+	try {
+	    pstmt.close();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+            }
+            if (conn != null) {
+	try {
+	    conn.close();
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+            }
+        }
+
+        return packages;
     }
 
     public void removeCart(Long travelPackageId, HttpSession session) {
