@@ -101,7 +101,7 @@ public class TravelService {
         cart.add(travelPackage);
     }
 
-    public List<TravelPackage> getTopFiveLikedPackages() throws SQLException {
+    public List<TravelPackage> getTopFourLikedPackages() throws SQLException {
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -113,7 +113,7 @@ public class TravelService {
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT * FROM travel_package ORDER BY likes DESC LIMIT 5";
+            String sql = "SELECT * FROM travel_package ORDER BY likes DESC LIMIT 4";
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
@@ -170,7 +170,7 @@ public class TravelService {
         return packages;
     }
 
-    public List<TravelPackage> getFiveRecentPackages() throws SQLException {
+    public List<TravelPackage> getFourRecentPackages() throws SQLException {
         Connection conn = null;
         try {
             conn = dataSource.getConnection();
@@ -182,7 +182,7 @@ public class TravelService {
         ResultSet rs = null;
 
         try {
-            String sql = "SELECT * FROM travel_package ORDER BY created_at DESC LIMIT 5";
+            String sql = "SELECT * FROM travel_package ORDER BY created_at DESC LIMIT 4";
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
 

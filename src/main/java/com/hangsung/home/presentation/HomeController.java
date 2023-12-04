@@ -41,10 +41,10 @@ public class HomeController {
             return "redirect:/login";
         }
 
-        List<TravelPackage> recentPackages = travelService.getFiveRecentPackages();
+        List<TravelPackage> recentPackages = travelService.getFourRecentPackages();
         model.addAttribute("recentPackages", recentPackages);
 
-        List<TravelPackage> likedPackages = travelService.getTopFiveLikedPackages();
+        List<TravelPackage> likedPackages = travelService.getTopFourLikedPackages();
         model.addAttribute("likedPackages", likedPackages);
 
         User user = userService.findUserById(Long.parseLong(userId));
