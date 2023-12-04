@@ -8,8 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TravelRepository extends JpaRepository<TravelPackage, Long> {
 
-    List<TravelPackage> findTop5ByOrderByLikesDesc();
-
-    List<TravelPackage> findTop5ByOrderByCreatedAtDesc();
-
 }

@@ -7,6 +7,7 @@ import com.hangsung.user.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +23,8 @@ public class HomeController {
     private final UserService userService;
     private final TravelService travelService;
 
-    /*
-    세션에 값이 있다면 로그인 성공으로 간주합니다.
-    세션에 값이 없다면 로그인 창으로 리다이렉션 합니다.
-     */
     @GetMapping("/")
-    public String home(Model model, HttpServletRequest request) {
+    public String home(Model model, HttpServletRequest request) throws SQLException {
         Cookie[] cookies = request.getCookies();
         String userId = null;
 
@@ -44,10 +41,10 @@ public class HomeController {
             return "redirect:/login";
         }
 
-        List<TravelPackage> recentPackages = travelService.getFiveRecentPackages();
+        List<TravelPackage> recentPackages = travelService.getFourRecentPackages();
         model.addAttribute("recentPackages", recentPackages);
 
-        List<TravelPackage> likedPackages = travelService.getTopFiveLikedPackages();
+        List<TravelPackage> likedPackages = travelService.getTopFourLikedPackages();
         model.addAttribute("likedPackages", likedPackages);
 
         User user = userService.findUserById(Long.parseLong(userId));
