@@ -12,50 +12,55 @@
           rel="stylesheet"/>
     <link href="../.././resources/css/style.css" rel="stylesheet" type="text/css"/>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+        table th {
+            font-size: 20px;
+        }
+    </style>
     <script>
-      $(document).ready(function () {
-        $('#remove-package-button').click(function () {
-          var packageId = $(this).data('package-id');
-          $.ajax({
-            url: '/travel/removeCart',
-            type: 'POST',
-            data: {travelPackageId: packageId},
-            success: function () {
-              alert('삭제 완료');
-              window.location.reload();
-            },
-            error: function () {
-              alert('오류가 발생했습니다. 다시 시도해주세요.');
-            }
-          });
+        $(document).ready(function () {
+            $('#remove-package-button').click(function () {
+                var packageId = $(this).data('package-id');
+                $.ajax({
+                    url: '/travel/removeCart',
+                    type: 'POST',
+                    data: {travelPackageId: packageId},
+                    success: function () {
+                        alert('삭제 완료');
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert('오류가 발생했습니다. 다시 시도해주세요.');
+                    }
+                });
+            });
         });
-      });
     </script>
     <script>
-      $(document).ready(function () {
-        $('#order-packages-button').click(function () {
-          $.ajax({
-            url: '/travel/orderCart',
-            type: 'POST',
-                success: function () {
-              alert('구매가 완료되었습니다.');
-              window.location.reload();
-            },
-            error: function () {
-              alert('오류가 발생했습니다. 다시 시도해주세요.');
-            }
-          });
+        $(document).ready(function () {
+            $('#order-packages-button').click(function () {
+                $.ajax({
+                    url: '/travel/orderCart',
+                    type: 'POST',
+                    success: function () {
+                        alert('구매가 완료되었습니다.');
+                        window.location.reload();
+                    },
+                    error: function () {
+                        alert('오류가 발생했습니다. 다시 시도해주세요.');
+                    }
+                });
+            });
         });
-      });
     </script>
 </head>
 <body>
 <jsp:include page="header.jsp"/>
 <div class="container">
-    <h1 class="display-6 fw-bolder" style="margin-top: 30px; margin-bottom: 30px"> 🛒 장바구니</h1>
+    <h1 class="display-6 fw-bolder my-5" > 🛒 장바구니</h1>
     <c:choose>
     <c:when test="${not empty cart}">
-        <table class="table" style="background-color: #f3f3f3">
+        <table class="table table-striped table-hover" style="background-color: #f3f3f3">
             <thead>
             <tr>
                 <th>패키지명</th>
@@ -87,17 +92,15 @@
     <c:otherwise>
     <hr class="my-3">
     <div class="container d-flex align-items-center flex-column">
-        <img src="../.././resources/images/emptyCart.png"
+        <img src="../.././resources/images/newEmptyCart.png"
              style="height: 300px; width: 300px; margin-bottom: 80px"/>
-        <h4 class="fw-bold text-start mb-3 ps-0">장바구니가 텅 비었어요 🥲</h4>
-        <button href="../home.jsp" type="button" class="btn btn-outline-secondary mb-3">패키지 구경하러 가기
+        <h4 class="fw-bold text-start mb-4 ps-0">장바구니가 텅 비었어요 🥲</h4>
+        <button href="../home.jsp" type="button" class="btn btn-outline-secondary mb-4">패키지 구경하러 가기
             🛒
         </button>
-        <h6 class="text-start mb-3 ps-0 text-secondary" style="font-size: 0.9em">아래의 패키지도 구경해보세요
-            ⬇️</h6>
+
     </div>
 </div>
-<jsp:include page="../main/recommendPackages.jsp"/>
 </c:otherwise>
 </c:choose>
 

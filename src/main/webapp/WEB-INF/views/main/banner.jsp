@@ -3,13 +3,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../.././resources/css/style.css" rel="stylesheet" type="text/css"/>
     <style>
-      .bg-dark-with-image {
-        background-image: url('../.././resources/images/banner.png');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        color: white;
-      }
+        .bg-dark-with-image {
+            background-image: url('../.././resources/images/banner.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+        }
     </style>
 </head>
 <body>

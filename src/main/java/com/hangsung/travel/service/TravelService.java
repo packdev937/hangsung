@@ -35,7 +35,7 @@ public class TravelService {
     private final UserRepository userRepository;
     private final CityRepository cityRepository;
     private final DataSource dataSource;
-    private final String uploadPath = "/Users/gundorit/upload";
+    private final String uploadPath = "/Users/kimchaeeun/upload";
 
     @Transactional
     public TravelPackage createTravelPackage(

@@ -80,11 +80,11 @@
                 <h1 class="display-6 fw-bolder">${travelPackage.title}</h1>
                 <div class="fs-5 mb-5">
                     <span class="text-decoration-line-through">${travelPackage.price}</span>
-                    <span> ${travelPackage.price-10000}</span>
+                    <span> ${travelPackage.price-10000}</span>원
                 </div>
                 <p>
                 <h5>여행지 : ${travelPackage.city.getName()}</h5>
-                <h5>추천인원 : ${travelPackage.people}</h5>
+                <h5>추천인원 : ${travelPackage.people}인</h5>
                 <h5>여행 기간 : ${travelPackage.duration} </h5>
                 <br>
                 <p class="lead">${travelPackage.travelRoute}</p>
