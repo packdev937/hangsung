@@ -6,11 +6,13 @@ import com.hangsung.user.request.SigninRequest;
 import com.hangsung.user.request.SignupRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
@@ -38,6 +40,8 @@ public class UserService {
         if (!signinRequest.password().equals(user.getPassword())) {
             throw new IllegalArgumentException("아이디 또는 비밀번호가 맞지 않습니다. 다시 입력해주세요.");
         }
+
+
 
         return user;
     }

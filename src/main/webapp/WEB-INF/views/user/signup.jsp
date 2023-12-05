@@ -5,7 +5,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../.././resources/css/style.css" rel="stylesheet" type="text/css"/>
-    <title>sign up</title>
+    <script type ="text/javascript" src ="../../../resources/js/validation.js"></script>
+    <title>회원 가입</title>
 </head>
 <body>
 <header class="bg-dark-with-image py-3">
@@ -21,7 +22,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <form action="/signup" method="post">
+            <form action="/signup" method="post" onsubmit="return checkSignUpForm()">
                 <div class="form-group mb-3">
                     <label for="username" style="font-size:18px"> 사용자 아이디</label>
                     <input type="text" class="form-control form-control-lg" id="username"
