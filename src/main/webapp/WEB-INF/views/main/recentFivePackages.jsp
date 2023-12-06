@@ -45,10 +45,11 @@
                                         } else {
                                             timeAgo = "방금 전";
                                         }
-                                    %>⏰ <%= timeAgo %>
+                                    %><%= timeAgo %>
                                 </h6>
                                 </a>
-                                <h6 class="text-secondary" style="font-size: 0.9rem;">${pkg.getPrice() - 10000}원
+                                <h6 class="text-secondary"
+                                    style="font-size: 0.9rem;">${String.format("%,d",pkg.getPrice() - 10000)}원
                                     / ${pkg.getPeople()}명</h6>
                             </div>
 

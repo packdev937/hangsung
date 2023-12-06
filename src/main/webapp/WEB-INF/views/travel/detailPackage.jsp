@@ -79,8 +79,8 @@
                 <div class="small mb-1">${travelPackage.user.getNickname()}</div>
                 <h1 class="display-6 fw-bolder">${travelPackage.title}</h1>
                 <div class="fs-5 mb-5">
-                    <span class="text-decoration-line-through">${travelPackage.price}</span>
-                    <span> ${travelPackage.price-10000}</span>원
+                    <span class="text-decoration-line-through">${String.format("%,d",travelPackage.price)}원</span>
+                    <span> ${String.format("%,d",travelPackage.price-10000)}</span>원
                 </div>
                 <p>
                 <h5>여행지 : ${travelPackage.city.getName()}</h5>

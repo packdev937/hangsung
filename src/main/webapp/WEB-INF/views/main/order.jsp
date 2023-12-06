@@ -31,7 +31,7 @@
             <c:forEach var="pkg" items="${order}">
                 <tr>
                     <td>${pkg.title}</td>
-                    <td>${pkg.price}</td>
+                    <td>${String.format("%,d",pkg.price)}</td>
 
                 </tr>
             </c:forEach>
@@ -47,7 +47,7 @@
             request.setAttribute("totalPrice", (int) totalPrice);
         %>
         <div style="margin-top: 50px; margin-bottom: 100px; display: flex; justify-content: space-between; align-items: center">
-            <h2 style="margin-right: auto;">총 가격: ${totalPrice}</h2>
+            <h2 style="margin-right: auto;">총 가격: ${String.format("%,d",totalPrice)}원</h2>
         </div>
     </c:when>
     <c:otherwise>

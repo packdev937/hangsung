@@ -1,22 +1,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=utf-8" %>
 <script>
-    // 랜덤한 텍스트와 배경 색 배열
-    const randomItems = [
-        {text: "HOT", bgColor: "bg-danger"},
-        {text: "SALE", bgColor: "bg-primary"}
-    ];
+  // 랜덤한 텍스트와 배경 색 배열
+  const randomItems = [
+    {text: "HOT", bgColor: "bg-danger"},
+    {text: "SALE", bgColor: "bg-primary"}
+  ];
 
-    // 랜덤한 배지를 적용하는 함수
-    function applyRandomBadge(element) {
-        const randomIndex = Math.floor(Math.random() * randomItems.length);
-        const selectedItem = randomItems[randomIndex];
+  // 랜덤한 배지를 적용하는 함수
+  function applyRandomBadge(element) {
+    const randomIndex = Math.floor(Math.random() * randomItems.length);
+    const selectedItem = randomItems[randomIndex];
 
-        // 선택한 랜덤 아이템의 텍스트와 배경 색을 화면에 표시
-        const randomBadge = element.querySelector(".random-badge");
-        randomBadge.innerText = selectedItem.text;
-        randomBadge.classList.add(selectedItem.bgColor);
-    }
+    // 선택한 랜덤 아이템의 텍스트와 배경 색을 화면에 표시
+    const randomBadge = element.querySelector(".random-badge");
+    randomBadge.innerText = selectedItem.text;
+    randomBadge.classList.add(selectedItem.bgColor);
+  }
 </script>
 
 <div class="container px-4 px-lg-5 mt-5">
@@ -31,7 +31,8 @@
                     <div class="badge text-white position-absolute random-badge"
                          style="top: 0.5rem; right: 0.5rem"></div>
                     <!-- Package image -->
-                    <img class="card-img-top" src="/upload/${pkg.getFilename()}" alt="..." style="height : 200px"/>
+                    <img class="card-img-top" src="/upload/${pkg.getFilename()}" alt="..."
+                         style="height : 200px"/>
                     <!-- Package details -->
                     <div class="card-body mb-0 pb-0">
                         <div class="text-left">
@@ -50,23 +51,25 @@
                                     <div class="bi-star-fill"></div>
                                     <div class="bi-star-fill"></div>
                                     <div class="bi-star-fill"></div>
-                                        ${pkg.getLikes()}
+                                         ${pkg.getLikes()}
                                 </h6>
                                 </a>
-                                <h6 class="text-secondary" style="font-size: 0.9rem;">${pkg.getPrice() - 10000}원
+                                <h6 class="text-secondary"
+                                    style="font-size: 0.9rem;">${String.format("%,d",pkg.getPrice() - 10000)}원
                                     / ${pkg.getPeople()}명</h6>
                             </div>
 
                             <!-- 오른쪽 열: 버튼 -->
                             <div class="col d-flex justify-content-end align-items-end">
-                                <a class="btn btn-outline-dark mt-0 btn-sm" href="/travel/${pkg.getId()}">자세히보기</a>
+                                <a class="btn btn-outline-dark mt-0 btn-sm"
+                                   href="/travel/${pkg.getId()}">자세히보기</a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <script>
-                    // 각각의 카드에 대해 랜덤 배지를 적용
-                    applyRandomBadge(document.querySelector('.col.mb-5:last-child'));
+                  // 각각의 카드에 대해 랜덤 배지를 적용
+                  applyRandomBadge(document.querySelector('.col.mb-5:last-child'));
                 </script>
             </div>
         </c:forEach>
