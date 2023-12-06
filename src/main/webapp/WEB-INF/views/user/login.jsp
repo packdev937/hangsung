@@ -24,6 +24,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
+            <c:if test="${not empty requestScope.loginError}">
+                <div style="color: red;">${requestScope.loginError}</div>
+            </c:if>
             <form action="/login" method="post">
                 <div class="form-group mb-3">
                     <input type="text" class="form-control form-control-lg"
