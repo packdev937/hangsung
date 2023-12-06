@@ -100,33 +100,18 @@ public class UserController {
 
     @GetMapping("/mypage")
     public String showMyPageForm(HttpServletRequest request, Model model) {
-        Long userId = null;
-        Cookie[] cookies = request.getCookies();
 
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-	if ("userId".equals(cookie.getName())) {
-	    try {
-	        userId = Long.parseLong(cookie.getValue());
-	    } catch (NumberFormatException e) {
-	        log.error("UserId cookie parsing error", e);
-	        return null;
-	    }
-	}
-            }
-        }
-
-        User user = userService.findUserById(userId);
+        User user = userService.findUserById(findUserIdByCookie(request));
         model.addAttribute("user", user);
 
         return "user/mypage";
     }
 
     @PostMapping("/user/change-password")
-    public String changePassword(Long userId, String newPassword,
+    public String changePassword(HttpServletRequest request, String newPassword,
         RedirectAttributes redirectAttributes) {
         try {
-            userService.changePassword(userId, newPassword);
+            userService.changePassword(findUserIdByCookie(request), newPassword);
             redirectAttributes.addFlashAttribute("message", "비밀번호가 변경되었습니다.");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "비밀번호 변경 중 오류가 발생했습니다.");
@@ -135,10 +120,10 @@ public class UserController {
     }
 
     @PostMapping("/user/change-nickname")
-    public String changeNickname(Long userId, String newNickname,
+    public String changeNickname(HttpServletRequest request, String newNickname,
         RedirectAttributes redirectAttributes) {
         try {
-            userService.changeNickname(userId, newNickname);
+            userService.changeNickname(findUserIdByCookie(request), newNickname);
             redirectAttributes.addFlashAttribute("message", "닉네임이 변경되었습니다.");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "닉네임 변경 중 오류가 발생했습니다.");
@@ -155,5 +140,24 @@ public class UserController {
             redirectAttributes.addFlashAttribute("error", "계정 삭제 중 오류가 발생했습니다.");
         }
         return "redirect:/login";
+    }
+
+    public Long findUserIdByCookie(HttpServletRequest request) {
+        Long userId = null;
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+	if ("userId".equals(cookie.getName())) {
+	    try {
+	        userId = Long.parseLong(cookie.getValue());
+	    } catch (NumberFormatException e) {
+	        log.error("UserId cookie parsing error", e);
+	        return null;
+	    }
+	}
+            }
+        }
+        return userId;
     }
 }

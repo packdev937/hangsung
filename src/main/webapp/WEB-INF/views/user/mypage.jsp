@@ -22,34 +22,39 @@
             </div>
 
             <div class="container mb-4" style="padding-left: 0px; width:60%; margin-left:0px">
-                <form action="/user/change-nickname" method="post" class="row row-cols-1" style="width:80%">
+                <form action="/user/change-nickname" method="post" class="row row-cols-1"
+                      style="width:80%">
                     <div class="col-3 mx-0">
-                        <label for="newNickname" class="form-label h5">새 비밀번호 : </label>
-                    </div>
-                    <div class="col-5 mx-0">
-                        <input type="password" id="newPassword" name="newPassword" class="form-control">
+                        <label class="form-label h5">새 비밀번호 : </label>
                     </div>
                     <div class="col-4 mx-0">
-                        <button type="submit" class="btn btn-primary">비밀번호 변경</button>
+                        <form action="/user/change-password" method="post">
+                            <input type="password" name="newPassword" required
+                                   placeholder="새 비밀번호" class="form-control"/>
+                            <button type="submit" class="btn btn-primary">비밀번호 변경</button>
+                        </form>
                     </div>
                 </form>
             </div>
 
             <div class="container mb-4" style="padding-left: 0px; width:60%; margin-left:0px">
-                <form action="/user/change-nickname" method="post" class="row row-cols-1" style="width:80%">
+                <form action="/user/change-nickname" method="post" class="row row-cols-1"
+                      style="width:80%">
                     <div class="col-3 mx-0">
-                        <label for="newNickname" class="form-label h5">새 닉네임:</label>
-                    </div>
-                    <div class="col-5 mx-0">
-                        <input type="text" id="newNickname" name="newNickname" class="form-control">
+                        <label class="form-label h5">새 닉네임:</label>
                     </div>
                     <div class="col-4 mx-0">
-                        <button type="submit" class="btn btn-primary">닉네임 변경</button>
+                        <form action="/user/change-nickname" method="post">
+                            <input type="text" name="newNickname" required placeholder="새 닉네임"
+                                   class="form-control"/>
+                            <button type="submit" class="btn btn-primary">닉네임 변경</button>
+                        </form>
                     </div>
                 </form>
             </div>
 
-            <a href="/delete-account" onclick="return confirm('정말로 탈퇴하시겠습니까?');" class="btn btn-danger mb-4">회원 탈퇴</a>
+            <a href="/delete-account" onclick="return confirm('정말로 탈퇴하시겠습니까?');"
+               class="btn btn-danger mb-4">회원 탈퇴</a>
         </c:when>
         <c:otherwise>
             <p class="login-required">로그인이 필요합니다.</p>
