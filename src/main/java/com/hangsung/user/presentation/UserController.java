@@ -1,6 +1,5 @@
 package com.hangsung.user.presentation;
 
-import com.hangsung.travel.domain.TravelPackage;
 import com.hangsung.user.domain.User;
 import com.hangsung.user.request.SigninRequest;
 import com.hangsung.user.request.SignupRequest;
@@ -9,8 +8,6 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -52,12 +49,10 @@ public class UserController {
     @PostMapping("/login")
     public String login(@ModelAttribute SigninRequest signinRequest,
         RedirectAttributes redirectAttributes,
-        HttpServletResponse response,
-        HttpSession session) {
+        HttpServletResponse response) {
         try {
             User user = userService.login(signinRequest);
             createCookie(response, "userId", user.getId().toString(), 24 * 60 * 60);
-            initialize(session);
             return "redirect:/";
         } catch (IllegalArgumentException e) {
             redirectAttributes.addFlashAttribute("loginError", e.getMessage());
@@ -72,13 +67,6 @@ public class UserController {
         response.addCookie(cookie);
     }
 
-    private void initialize(HttpSession session) {
-        List<TravelPackage> cart = new ArrayList<>();
-        session.setAttribute("cart", cart);
-
-        List<TravelPackage> order = new ArrayList<>();
-        session.setAttribute("order", order);
-    }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {

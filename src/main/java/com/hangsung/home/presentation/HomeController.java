@@ -8,6 +8,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class HomeController {
     private final TravelService travelService;
 
     @GetMapping("/")
-    public String home(Model model, HttpServletRequest request) throws SQLException {
+    public String home(Model model, HttpServletRequest request, HttpSession session) throws SQLException {
         Cookie[] cookies = request.getCookies();
         String userId = null;
 
@@ -40,6 +41,7 @@ public class HomeController {
         if (userId == null) {
             return "redirect:/login";
         }
+        initialize(session);
 
         List<TravelPackage> recentPackages = travelService.getFourRecentPackages();
         model.addAttribute("recentPackages", recentPackages);
@@ -50,6 +52,14 @@ public class HomeController {
         User user = userService.findUserById(Long.parseLong(userId));
         model.addAttribute("user", user);
         return "/main/home";
+    }
+
+    private void initialize(HttpSession session) {
+        List<TravelPackage> cart = new ArrayList<>();
+        session.setAttribute("cart", cart);
+
+        List<TravelPackage> order = new ArrayList<>();
+        session.setAttribute("order", order);
     }
 
     @GetMapping("/cart")
