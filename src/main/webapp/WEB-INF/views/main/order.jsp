@@ -31,7 +31,7 @@
             <c:forEach var="pkg" items="${order}">
                 <tr>
                     <td>${pkg.title}</td>
-                    <td>${String.format("%,d",pkg.price)}</td>
+                    <td>${String.format("%,d",pkg.price-10000)}</td>
 
                 </tr>
             </c:forEach>
@@ -42,7 +42,7 @@
             List<TravelPackage> orderItems = (List<TravelPackage>) request.getAttribute(
                     "order");
             for (TravelPackage pkg : orderItems) {
-                totalPrice += pkg.getPrice();
+                totalPrice += pkg.getPrice() - 10000;
             }
             request.setAttribute("totalPrice", (int) totalPrice);
         %>

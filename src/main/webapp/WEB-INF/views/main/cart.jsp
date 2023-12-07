@@ -74,7 +74,7 @@
             <c:forEach var="pkg" items="${cart}">
                 <tr>
                     <td>${pkg.title}</td>
-                    <td>${String.format("%,d",pkg.price)}</td>
+                    <td>${String.format("%,d",pkg.price-10000)}</td>
                     <td>
                         <button id="remove-package-button" class="btn btn-success"
                                 data-package-id="${pkg.id}"> 삭제하기
@@ -89,7 +89,7 @@
             List<TravelPackage> cartList = (List<TravelPackage>) request.getAttribute(
                     "cart");
             for (TravelPackage pkg : cartList) {
-                totalPrice += pkg.getPrice();
+                totalPrice += pkg.getPrice() - 10000;
             }
             request.setAttribute("totalPrice", (int) totalPrice);
         %>
