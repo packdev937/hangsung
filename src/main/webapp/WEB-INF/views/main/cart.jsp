@@ -86,9 +86,9 @@
         </table>
         <%
             double totalPrice = 0;
-            List<TravelPackage> orderItems = (List<TravelPackage>) request.getAttribute(
-                    "order");
-            for (TravelPackage pkg : orderItems) {
+            List<TravelPackage> cartList = (List<TravelPackage>) request.getAttribute(
+                    "cart");
+            for (TravelPackage pkg : cartList) {
                 totalPrice += pkg.getPrice();
             }
             request.setAttribute("totalPrice", (int) totalPrice);
