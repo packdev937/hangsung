@@ -18,9 +18,6 @@
         </div>
     </div>
 </header>
-<c:if test="${not empty sessionScope.loginError}">
-    <div style="color: red;">${sessionScope.loginError}</div>
-</c:if>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">

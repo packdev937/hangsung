@@ -24,26 +24,20 @@
         <h3 class="fw-bold text-start mb-0 ps-0">지금 인기있는 여행들이에요 </h3><br>
     </div>
     <div class="row gx-3 gx-lg-4 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-        <%-- 패키지 리스트 반복 --%>
         <c:forEach var="pkg" items="${likedPackages}">
             <div class="col mb-5">
                 <div class="card h-100">
                     <div class="badge text-white position-absolute random-badge"
                          style="top: 0.5rem; right: 0.5rem"></div>
-                    <!-- Package image -->
                     <img class="card-img-top" src="/upload/${pkg.getFilename()}" alt="..."
                          style="height : 200px"/>
-                    <!-- Package details -->
                     <div class="card-body mb-0 pb-0">
                         <div class="text-left">
-                            <!-- Package name -->
                             <h5 class="fw-bolder">${pkg.getTitle()}</h5>
                         </div>
                     </div>
-                    <!-- Product details & actions -->
                     <div class="card-footer pt-0 mt-0 border-top-0 bg-transparent">
                         <div class="row">
-                            <!-- 왼쪽 열: 텍스트 -->
                             <div class="col-md-6 mr-0 d-flex flex-column align-items-start">
                                 <h6 class="d-flex small text-warning mb-2">
                                     <div class="bi-star-fill"></div>
@@ -59,7 +53,6 @@
                                     / ${pkg.getPeople()}명</h6>
                             </div>
 
-                            <!-- 오른쪽 열: 버튼 -->
                             <div class="col d-flex justify-content-end align-items-end">
                                 <a class="btn btn-outline-dark mt-0 btn-sm"
                                    href="/travel/${pkg.getId()}">자세히보기</a>

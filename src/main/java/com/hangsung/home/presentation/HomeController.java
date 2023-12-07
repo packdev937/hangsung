@@ -25,7 +25,8 @@ public class HomeController {
     private final TravelService travelService;
 
     @GetMapping("/")
-    public String home(Model model, HttpServletRequest request, HttpSession session) throws SQLException {
+    public String home(Model model, HttpServletRequest request, HttpSession session)
+        throws SQLException {
         Cookie[] cookies = request.getCookies();
         String userId = null;
 
@@ -55,11 +56,15 @@ public class HomeController {
     }
 
     private void initialize(HttpSession session) {
-        List<TravelPackage> cart = new ArrayList<>();
-        session.setAttribute("cart", cart);
+        if (session.getAttribute("cart") == null) {
+            List<TravelPackage> cart = new ArrayList<>();
+            session.setAttribute("cart", cart);
+        }
 
-        List<TravelPackage> order = new ArrayList<>();
-        session.setAttribute("order", order);
+        if (session.getAttribute("order") == null) {
+            List<TravelPackage> order = new ArrayList<>();
+            session.setAttribute("order", order);
+        }
     }
 
     @GetMapping("/cart")
