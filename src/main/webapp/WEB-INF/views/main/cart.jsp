@@ -106,9 +106,9 @@
         <img src="../.././resources/images/newEmptyCart.png"
              style="height: 300px; width: 300px; margin-bottom: 80px"/>
         <h4 class="fw-bold text-start mb-4 ps-0">장바구니가 텅 비었어요 🥲</h4>
-        <button href="../home.jsp" type="button" class="btn btn-outline-secondary mb-4">패키지 구경하러 가기
+        <a href="/" type="button" class="btn btn-outline-secondary mb-4">패키지 구경하러 가기
             🛒
-        </button>
+        </a>
 
     </div>
 </div>

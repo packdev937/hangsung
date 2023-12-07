@@ -56,9 +56,9 @@
         <img src="../../../resources/images/emptyPurchase1.png"
              style="height: 400px; width: 700px; margin-bottom: 80px; margin-top:50px"/>
         <h4 class="fw-bold text-start mb-4 ps-0">아직 구매한 패키지가 없어요 😳</h4>
-        <button href="/" type="button" class="btn btn-outline-secondary mb-4">패키지 구경하러 가기
+        <a href="/" type="button" class="btn btn-outline-secondary mb-4">패키지 구경하러 가기
             🛒
-        </button>
+        </a>
     </div>
 </div>
 </c:otherwise>
